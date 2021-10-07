@@ -6,31 +6,17 @@ namespace Task2
     internal class DiaryProducts : Product
     {
         private ExpirationDatePercent datePercent;
-        private int expirationDate;
-        public DiaryProducts(string name, double price, double weight, int expirationDate) : base(name, price, weight)
+
+        public DiaryProducts(string name, double price, double weight, int expirationDate, DateTime creationDate) 
+            : base(name, price, weight, expirationDate, creationDate)
         {
-            this.expirationDate = expirationDate;
-            datePercent = this.expirationDate > 10 ? ExpirationDatePercent.MoreThanTenDays
-                : ExpirationDatePercent.LessThanTenDays;
+            this.datePercent = expirationDate > 10 ? ExpirationDatePercent.MoreThanTenDays
+               : ExpirationDatePercent.LessThanTenDays;
         }
 
-        public int ExpirationDate
+        public DiaryProducts()
         {
-            get
-            {
-                return expirationDate;
-            }
-            set
-            {
-                if(value > 0)
-                {
-                    expirationDate = value;
-                }
-                else
-                {
-                    throw new ArgumentException("Incorrect value of expiration date");
-                }
-            }
+            this.datePercent = ExpirationDatePercent.LessThanTenDays;
         }
 
         public override bool Equals(object obj)
@@ -39,12 +25,12 @@ namespace Task2
                 return false;
 
             var other = (DiaryProducts)obj;
-            return (expirationDate == other.expirationDate);
+            return (Name == other.Name) && (ExpirationDate == this.ExpirationDate);
         }
 
         public override string ToString()
         {
-            return base.ToString() + $", expiration date = {expirationDate}";
+            return base.ToString();
 
         }
 
@@ -55,9 +41,8 @@ namespace Task2
                 throw new ArgumentException("Incorrect value of percent");
             }
                 Price += Price * (percent / 100.0) * ((int)datePercent / 100.0);
-            
-
         }
+
 
     }
 }

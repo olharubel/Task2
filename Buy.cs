@@ -1,57 +1,69 @@
-﻿namespace Task2
+﻿using System;
+using System.Collections.Generic;
+
+namespace Task2
 {
+    struct ProductInfo
+    {
+        public Product p;
+        public int amount;
+
+        public ProductInfo(Product p, int amount)
+        {
+            this.p = p;
+            this.amount = amount;
+        }
+
+    }
     internal class Buy
     {
-        private readonly Product productData;
-        private uint amount;
-        private double totalPrice;
-        private double totalWeight;
+        private List<ProductInfo> productList;
 
-        public Buy(Product productData, uint amount)
+        public Buy(List<ProductInfo> productList)
         {
-            this.productData = productData;
-            this.amount = amount;
-            totalPrice = this.amount * this.productData.Price;
-            totalWeight = this.amount * this.productData.Weight;
+            this.productList = productList;
         }
 
-        public uint Amount
+        public Buy()
         {
-            get
-            {
-                return amount;
-            }
-            set
-            {
-                if (value > 0)
-                {
-                    amount = value;
-                }
-            }
+            productList = new List<ProductInfo>();
         }
 
-        public double TotalPrice
+        private double CountTotalPrice()
         {
-            get
+            double totalPrice = 0.0;
+            foreach (var product in productList)
             {
-                return totalPrice;
+                totalPrice += product.amount * product.p.Price;
             }
-            set
-            {
-                totalPrice = value;
-            }
+            return totalPrice;
         }
 
-        public double TotalWeight
+        private double CountTotalWeight()
         {
-            get
+            double totalWeight = 0.0;
+            foreach (var product in productList)
             {
-                return totalWeight;
+                totalWeight += product.amount * product.p.Weight;
             }
-            set
+            return totalWeight;
+        }
+
+
+        public override string ToString()
+        {
+
+            string str = "";
+            foreach (var product in productList)
             {
-                totalWeight = value;
+                str += product.p.ToString() + $"\tamount {product.amount}\n";
             }
+            return str + "\n" + $"Total price: {CountTotalPrice()}\tTotal weight {CountTotalWeight()}";
+        }
+
+        public void IntitalizeProductList(ProductInfo product)
+        {
+            productList.Add(product);
         }
     }
 }

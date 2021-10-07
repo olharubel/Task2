@@ -7,31 +7,19 @@ namespace Task2
         
         static void Main(string[] args)
         {
-            //Storage s = new Storage();
-            //s.FillArrayOfProducts();
-            //s.PrintAllProducts();
-            //var meat = s.GetAllMeetProducts();
-            //foreach(var elem in meat)
-            //{
-            //    Console.WriteLine(elem);
-            //}
-            //Console.ReadLine();
-            Storage s2 = new Storage();
-            ConsoleStorageManager storageManager = new ConsoleStorageManager(s2);
+            Storage s = new Storage();
+            ConsoleStorageManager storageManager = new ConsoleStorageManager(s);
+            Product p = new Product();
             try
             {
-                storageManager.Run();
+                s.ReadFromFile(@"C:\Users\Ростик\source\repos\Task2\ListOfProducts.txt");
+                Console.WriteLine(storageManager.PrintAllProducts());
             }
             catch(Exception exc)
             {
                 Console.WriteLine(exc.Message);
             }
-            s2.ChangePrice(15);
-            s2.PrintAllProducts();
             Console.ReadLine();
-            
-
-
         }
     }
 }

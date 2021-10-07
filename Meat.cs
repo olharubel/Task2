@@ -1,18 +1,64 @@
 ﻿using System;
+using System.Globalization;
 
 namespace Task2
 {
-    public enum Category { HighestGrade = 30, FirstGrade = 20, SecondGrade = 10};
-    public enum Kind { Lamb , Veal, Pork , Chicken};
+    struct MeatType
+    {
+        public enum Category { HighestGrade = 30, FirstGrade = 20, SecondGrade = 10 };
+        public enum Kind { Lamb, Veal, Pork, Chicken };
+
+        public static Category GetCategoryBySymbol(char grade)
+        {
+            switch (grade)
+            {
+                case 'H':
+                    return Category.HighestGrade;
+                case 'F':
+                    return Category.FirstGrade;
+                case 'S':
+                    return Category.SecondGrade;
+                default:
+                    throw new ArgumentException("Uknown category");
+            }
+
+        }
+
+        public static Kind GetKindBySymbol(char kind)
+        {
+            switch (kind)
+            {
+                case 'L':
+                    return Kind.Lamb;
+                case 'V':
+                    return Kind.Veal;
+                case 'P':
+                    return Kind.Pork;
+                case 'C':
+                    return Kind.Chicken;
+                default:
+                    throw new ArgumentException("Uknown kind");
+            }
+        }
+    }
+  
     internal class Meat : Product
     {
-        Category category;
-        Kind kind;
+        MeatType.Category category;
+        MeatType.Kind kind;
 
-        public Meat(string name, double price, double weight, Category category, Kind kind): base(name, price, weight) {
+        public Meat(string name, double price, double weight, MeatType.Category category, MeatType.Kind kind): base(name, price, weight) {
             this.category = category;
             this.kind = kind;
         }
+
+        public Meat()
+        {
+            this.category = MeatType.Category.HighestGrade;
+            this.kind = MeatType.Kind.Chicken;
+        }
+
+     
 
         public override string ToString()
         {
@@ -26,6 +72,23 @@ namespace Task2
                 throw new ArgumentException("Incorrect value of percent");
             }
             Price += Price * (percent / 100.0) * ((int)category / 100.0);
+        }
+
+        public override void Parse(string date)
+        {
+            string[] info = date.Split();
+
+            if (info.Length != 5)
+            {
+                throw new ArgumentException("Incorrect format of data");
+            }
+
+            Name = info[0];
+            IFormatProvider formatter = new NumberFormatInfo { NumberDecimalSeparator = "." };
+            Price = Convert.ToDouble(info[1], formatter);
+            Weight = Convert.ToDouble(info[2], formatter);
+            category = MeatType.GetCategoryBySymbol(char.Parse(info[3]));
+            kind = MeatType.GetKindBySymbol(char.Parse(info[4]));
         }
     }
 }

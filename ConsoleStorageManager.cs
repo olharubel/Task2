@@ -12,39 +12,7 @@ namespace Task2
             this.s = s;
         }
 
-        private Category GetCategoryBySymbol(char grade)
-        {
-            switch (grade)
-            {
-                case 'H':
-                    return Category.HighestGrade;
-                case 'F':
-                    return Category.FirstGrade;
-                case 'S':
-                    return Category.SecondGrade;
-                default:
-                    throw new ArgumentException("Uknown category");
-            }
-
-        }
-
-        private Kind GetKindBySymbol(char kind)
-        {
-            switch (kind)
-            {
-                case 'L':
-                    return Kind.Lamb;
-                case 'V':
-                    return Kind.Veal;
-                case 'P':
-                    return Kind.Pork;
-                case 'C':
-                    return Kind.Chicken;
-                default:
-                    throw new ArgumentException("Uknown kind");
-            }
-        }
-
+     
         private (string, double, double) ReadParams()
         {
             Console.WriteLine("Enter name:");
@@ -54,6 +22,11 @@ namespace Task2
             Console.WriteLine("Enter weight:");
             double weight = Convert.ToDouble(Console.ReadLine());
             return (name, price, weight);
+        }
+
+        public string PrintAllProducts()
+        {
+            return s.ToString();
         }
 
         public void Run()
@@ -77,8 +50,7 @@ namespace Task2
                     case 'P':
                         {
                             var data = ReadParams();
-
-                                s.AddToStorage(new Product(data.Item1, data.Item2, data.Item3));
+                            s.AddToStorage(new Product(data.Item1, data.Item2, data.Item3));
 
                         }
                         break;
@@ -87,8 +59,10 @@ namespace Task2
                             var data = ReadParams();
                             Console.WriteLine("Enter expiration date:");
                             int expirationDate = Convert.ToInt32(Console.ReadLine());
-
-                                s.AddToStorage(new DiaryProducts(data.Item1, data.Item2, data.Item3, expirationDate));
+                            Console.WriteLine("Enter creation date");
+                            string date = Console.ReadLine();
+                            DateTime dt = Convert.ToDateTime(date);
+                            s.AddToStorage(new DiaryProducts(data.Item1, data.Item2, data.Item3, expirationDate, dt));
 
                             
                         }
@@ -99,13 +73,13 @@ namespace Task2
                             Console.WriteLine("Enter grade of meet ('H' for HighestGrade, " +
                           "'F' for FirstGrade, 'S' for SecondGrade):");
                             char grade = (char)Console.Read();
-                            Console.ReadLine(); //read \n from buffer
-                                Category category = GetCategoryBySymbol(grade);
+                            Console.ReadLine(); 
+                            MeatType.Category category = MeatType.GetCategoryBySymbol(grade);
                             Console.WriteLine("Enter kind of meet ('L' for Lamb, 'V' for Veal" +
                            "'P' for Pork, 'C' for Chicken):");
                             char kind = (char)Console.Read();
-                            Console.ReadLine(); //read \n from buffer
-                            Kind kindOfMeet = GetKindBySymbol(kind);
+                            Console.ReadLine();  
+                            MeatType.Kind kindOfMeet = MeatType.GetKindBySymbol(kind);
                                 s.AddToStorage(new Meat(data.Item1, data.Item2, data.Item3, category, kindOfMeet));
 
                             
