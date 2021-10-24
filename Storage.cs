@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Task2
 {
-    class Storage
+    public class Storage
     {
         private List<Product> products;
 
@@ -104,7 +104,6 @@ namespace Task2
             {
                 using (StreamReader sr = new StreamReader(path, System.Text.Encoding.Default))
                 {
-
                     string data;
                     while (!sr.EndOfStream)
                     {
@@ -122,7 +121,22 @@ namespace Task2
               catch(Exception exc)
             {
                 throw exc;
-            } 
+            }
+        }
+
+        public static bool CompareStorageProducts(Product p1, Product p2)
+        {
+            return p1.Equals(p2);
+        }
+
+        public List<Product> GetProductList()
+        {
+            return products;
+        }
+
+        public int GetCount()
+        {
+            return products.Count();
         }
     }
 }

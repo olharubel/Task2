@@ -90,5 +90,16 @@ namespace Task2
             category = MeatType.GetCategoryBySymbol(char.Parse(info[3]));
             kind = MeatType.GetKindBySymbol(char.Parse(info[4]));
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj.GetType() != GetType())
+                return false;
+
+            Meat other = (Meat)obj;
+            return (Name == other.Name && Price == other.Price && Weight == other.Weight
+               && category == other.category && kind == other.kind);
+        }
+
     }
 }

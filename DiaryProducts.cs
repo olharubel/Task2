@@ -21,11 +21,7 @@ namespace Task2
 
         public override bool Equals(object obj)
         {
-            if (obj.GetType() != GetType())
-                return false;
-
-            var other = (DiaryProducts)obj;
-            return (Name == other.Name) && (ExpirationDate == this.ExpirationDate);
+            return base.Equals(obj);
         }
 
         public override string ToString()
@@ -42,7 +38,5 @@ namespace Task2
             }
                 Price += Price * (percent / 100.0) * ((int)datePercent / 100.0);
         }
-
-
     }
 }

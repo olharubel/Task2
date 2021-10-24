@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
 
 namespace Task2
 {
-    internal class Product
+
+
+    public class Product
     {
         private string name;
         private double price;
@@ -113,19 +116,22 @@ namespace Task2
             }
         }
 
+
+
         public override bool Equals(object obj)
         {
             if (obj.GetType() != this.GetType()) 
                 return false;
 
             var other = (Product)obj;
-            return (name == other.name);
+            return (Name == other.Name && Price == other.Price && Weight == other.Weight
+                && ExpirationDate == other.ExpirationDate && CreationDate == other.CreationDate);
         }
 
         public override String ToString()
         {
             return $"Name: {name}, price = {price}, weight = {weight}, expDate = {expirationDate}, " +
-                $"{creationDate.ToString("d.MM.yyyy")}";
+                $"{creationDate:d.MM.yyyy}";
         }
 
         public virtual void ChangePrice(int percent) 
@@ -155,4 +161,6 @@ namespace Task2
             creationDate = Convert.ToDateTime(info[4]);
         }
     }
+
+   
 }

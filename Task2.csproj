@@ -45,10 +45,12 @@
   <ItemGroup>
     <Compile Include="Buy.cs" />
     <Compile Include="Check.cs" />
+    <Compile Include="Comparer.cs" />
     <Compile Include="ConsoleStorageManager.cs" />
     <Compile Include="DiaryProducts.cs" />
     <Compile Include="Meat.cs" />
     <Compile Include="Product.cs" />
+    <Compile Include="StoragesComparerManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Storage.cs" />
@@ -58,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ListOfProducts.txt" />
+    <Content Include="ListOfProducts2.txt" />
     <Content Include="RemovedDiaryProducts.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
